@@ -3,8 +3,11 @@
 #include "mydialog.h"
 //following QStatusBartutorial
 #include <QtGui>
-#include <QTCore>
-
+#include <QtCore>
+#include <QtWidgets>
+//including the process to link to external source
+#include <qprocess.h>
+#include "dialogloadsettings.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,9 +34,50 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAbout_triggered()
 {
- mDialog = new MyDialog(this);
- mDialog->show();
+    mDialog = new MyDialog(this);
+    mDialog->show();
 
  //after tutorial
  //ui->statusBar->showMessage("Progress");
+}
+
+void MainWindow::on_actionLoad_Settings_triggered()
+{
+    dia = new DialogLoadSettings(this);
+    dia->show();
+}
+
+void MainWindow::on_actionSave_Settings_triggered()
+{
+    QMessageBox::information(this,"Save Settings","Text Here");
+}
+
+//Agilent VISA User's Guide
+void MainWindow::on_actionLink_1_triggered()
+{
+    QProcess *process = new QProcess(this);
+    QString command = "C:/Program Files (x86)/Mozilla Firefox/firefox.exe";
+    QStringList args;
+    args<<"http://cp.literature.agilent.com/litweb/pdf/5188-5798.pdf";
+    process->start(command, args);
+}
+
+//Oscilloscope user's guide
+void MainWindow::on_actionDigital_Oscilloscope_User_s_Guide_triggered()
+{
+    QProcess *process = new QProcess(this);
+    QString command = "C:/Program Files (x86)/Mozilla Firefox/firefox.exe";
+    QStringList args;
+    args<<"http://www.berkeleynucleonics.com/resources/Scope_Manual.pdf";
+    process->start(command, args);
+}
+
+//UltraSigma User's Guide
+void MainWindow::on_actionUltraSigma_User_s_Guide_triggered()
+{
+    QProcess *process = new QProcess(this);
+    QString command = "C:/Program Files (x86)/Mozilla Firefox/firefox.exe";
+    QStringList args;
+    args<<"Need address here";
+    process->start(command, args);
 }

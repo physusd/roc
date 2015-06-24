@@ -1,24 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MyDialog</class>
- <widget class="QDialog" name="MyDialog">
+ <author/>
+ <comment/>
+ <exportmacro/>
+ <class>DialogLoadSettings</class>
+ <widget name="DialogLoadSettings" class="QDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>304</width>
-    <height>263</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>About ROC</string>
+   <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget name="buttonBox" class="QDialogButtonBox">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>220</y>
-     <width>171</width>
+     <x>30</x>
+     <y>240</y>
+     <width>341</width>
      <height>32</height>
     </rect>
    </property>
@@ -29,36 +31,14 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QTabWidget" name="tabWidget">
-   <property name="geometry">
-    <rect>
-     <x>26</x>
-     <y>30</y>
-     <width>221</width>
-     <height>171</height>
-    </rect>
-   </property>
-   <property name="currentIndex">
-    <number>0</number>
-   </property>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Read Me</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Author List</string>
-    </attribute>
-   </widget>
-  </widget>
  </widget>
+ <pixmapfunction/>
  <resources/>
  <connections>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>MyDialog</receiver>
+   <receiver>DialogLoadSettings</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -74,7 +54,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>MyDialog</receiver>
+   <receiver>DialogLoadSettings</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

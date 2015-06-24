@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Remote Oscilloscope Conrol (ROC)</string>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -28,12 +28,23 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionLoad_Settings"/>
+    <addaction name="actionSave_Settings"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
+    <widget class="QMenu" name="menuLinks">
+     <property name="title">
+      <string>Links</string>
+     </property>
+     <addaction name="actionLink_1"/>
+     <addaction name="actionDigital_Oscilloscope_User_s_Guide"/>
+     <addaction name="actionUltraSigma_User_s_Guide"/>
+    </widget>
     <addaction name="actionAbout"/>
+    <addaction name="menuLinks"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
@@ -55,6 +66,31 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionLoad_Settings">
+   <property name="text">
+    <string>Load Settings...</string>
+   </property>
+  </action>
+  <action name="actionSave_Settings">
+   <property name="text">
+    <string>Save Settings...</string>
+   </property>
+  </action>
+  <action name="actionLink_1">
+   <property name="text">
+    <string>Agilent VISA User's Guide</string>
+   </property>
+  </action>
+  <action name="actionDigital_Oscilloscope_User_s_Guide">
+   <property name="text">
+    <string>Digital Oscilloscope User's Guide</string>
+   </property>
+  </action>
+  <action name="actionUltraSigma_User_s_Guide">
+   <property name="text">
+    <string>UltraSigma User's Guide</string>
    </property>
   </action>
  </widget>

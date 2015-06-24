@@ -8,6 +8,7 @@
 #include <QtGui>
 #include <QLabel>
 #include <QProgressBar>
+#include "dialogloadsettings.h"
 
 
 namespace Ui {
@@ -25,9 +26,21 @@ public:
 private slots:
     void on_actionAbout_triggered();
 
+    void on_actionLoad_Settings_triggered();
+
+    void on_actionSave_Settings_triggered();
+
+    void on_actionLink_1_triggered();
+
+    void on_actionDigital_Oscilloscope_User_s_Guide_triggered();
+
+    void on_actionUltraSigma_User_s_Guide_triggered();
+
 private:
     Ui::MainWindow *ui;
     MyDialog *mDialog;
+
+    DialogLoadSettings *dia;
 
     //tutorial 25
     QLabel *Statlabel;

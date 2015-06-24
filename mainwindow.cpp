@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mydialog.h"
+#include "dialogabout.h"
+#include "dialogloadsettings.h"
 //following QStatusBartutorial
 #include <QtGui>
 #include <QtCore>
 #include <QtWidgets>
 //including the process to link to external source
 #include <qprocess.h>
-#include "dialogloadsettings.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
     StatProgress->setTextVisible(false);
 
     Statlabel->setText("Progress");
-
 }
 
 MainWindow::~MainWindow()
@@ -34,17 +33,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAbout_triggered()
 {
-    mDialog = new MyDialog(this);
-    mDialog->show();
-
- //after tutorial
- //ui->statusBar->showMessage("Progress");
+    dia_about = new DialogAbout(this);
+    dia_about->show();
 }
 
 void MainWindow::on_actionLoad_Settings_triggered()
 {
-    dia = new DialogLoadSettings(this);
-    dia->show();
+    dia_load = new DialogLoadSettings(this);
+    dia_load->show();
 }
 
 void MainWindow::on_actionSave_Settings_triggered()

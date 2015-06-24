@@ -1,14 +1,14 @@
-#include "mydialog.h"
-#include "ui_mydialog.h"
+#include "dialogabout.h"
+#include "ui_dialogabout.h"
 
-MyDialog::MyDialog(QWidget *parent) :
+DialogAbout::DialogAbout(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::MyDialog)
+    ui(new Ui::DialogAbout)
 {
     ui->setupUi(this);
 }
 
-MyDialog::~MyDialog()
+DialogAbout::~DialogAbout()
 {
     delete ui;
 }

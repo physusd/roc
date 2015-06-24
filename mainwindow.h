@@ -2,14 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "mydialog.h"
 //Tutorial 25
 #include <QtCore>
 #include <QtGui>
 #include <QLabel>
 #include <QProgressBar>
-#include "dialogloadsettings.h"
 
+class DialogAbout;
+class DialogLoadSettings;
 
 namespace Ui {
 class MainWindow;
@@ -38,9 +38,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    MyDialog *mDialog;
-
-    DialogLoadSettings *dia;
+    DialogAbout *dia_about;
+    DialogLoadSettings *dia_load;
 
     //tutorial 25
     QLabel *Statlabel;

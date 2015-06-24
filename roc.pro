@@ -15,13 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     dialogloadsettings.cpp \
-    dialogabout.cpp
+    dialogabout.cpp \
+    dialogsavesettings.cpp
 
 HEADERS  += \
     mainwindow.h \
     dialogloadsettings.h \
-    dialogabout.h
+    dialogabout.h \
+    dialogsavesettings.h
 
 FORMS    += mainwindow.ui \
     dialogloadsettings.ui \
-    dialogabout.ui
+    dialogabout.ui \
+    dialogsavesettings.ui

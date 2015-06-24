@@ -10,6 +10,7 @@
 
 class DialogAbout;
 class DialogLoadSettings;
+class DialogSaveSettings;
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,7 @@ private:
     Ui::MainWindow *ui;
     DialogAbout *dia_about;
     DialogLoadSettings *dia_load;
+    DialogSaveSettings *dia_save;
 
     //tutorial 25
     QLabel *Statlabel;

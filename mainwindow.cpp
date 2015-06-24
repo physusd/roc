@@ -2,12 +2,17 @@
 #include "ui_mainwindow.h"
 #include "dialogabout.h"
 #include "dialogloadsettings.h"
+#include "dialogsavesettings.h"
 //following QStatusBartutorial
 #include <QtGui>
 #include <QtCore>
 #include <QtWidgets>
 //including the process to link to external source
 #include <qprocess.h>
+//after tutorial for displaying file
+#include <QFile>
+#include <QTextStream>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -35,6 +40,22 @@ void MainWindow::on_actionAbout_triggered()
 {
     dia_about = new DialogAbout(this);
     dia_about->show();
+
+    //from a tutorial online
+   //QFile file("C:\\Users\\eric.roach\\Documents\\roc");
+   //if(!file.open(QIODevice::ReadOnly))
+      //  QMessageBox::information(0,"info",file.errorString());
+
+  //  QTextStream in(&file);
+
+   // ui->textBrowser->setText(in.readAll());
+
+
+
+    //string contentFromLICENSE;
+   // ifstream inputfile("path/to/LICENSE");
+//contestFromLICENSE<<inputfile;
+//dia_about->tab(1)->SetContent(contestFromLICENSE);
 }
 
 void MainWindow::on_actionLoad_Settings_triggered()
@@ -45,7 +66,8 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
 void MainWindow::on_actionSave_Settings_triggered()
 {
-    QMessageBox::information(this,"Save Settings","Text Here");
+    dia_save = new DialogSaveSettings(this);
+    dia_save->show();
 }
 
 //Agilent VISA User's Guide

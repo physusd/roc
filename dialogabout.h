@@ -15,6 +15,11 @@ public:
     explicit DialogAbout(QWidget *parent = 0);
     ~DialogAbout();
 
+private slots:
+    void on_tabWidget_destroyed();
+
+    void on_pushButton_clicked();
+
 private:
     Ui::DialogAbout *ui;
 };

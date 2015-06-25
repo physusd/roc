@@ -9,6 +9,14 @@ DialogAbout::DialogAbout(QWidget *parent) :
     ui(new Ui::DialogAbout)
 {
     ui->setupUi(this);
+    QFile file("C:\\Users\\eric.roach\\Documents\\roc\\LICENSE");
+    if(!file.open(QIODevice::ReadOnly))
+         QMessageBox::information(0,"info",file.errorString());
+
+     QTextStream in(&file);
+
+     ui->textBrowser->setText(in.readAll());
+
 }
 
 DialogAbout::~DialogAbout()
@@ -19,7 +27,7 @@ DialogAbout::~DialogAbout()
 
 void DialogAbout::on_pushButton_clicked()
 {
-    QFile file("C:\\Users\\eric.roach\\Documents\\roc");
+    QFile file("C:\\Users\\eric.roach\\Documents\\roc\\LICENSE");
     if(!file.open(QIODevice::ReadOnly))
          QMessageBox::information(0,"info",file.errorString());
 

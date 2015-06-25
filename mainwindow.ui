@@ -44,6 +44,7 @@
      <addaction name="actionUltraSigma_User_s_Guide"/>
     </widget>
     <addaction name="actionAbout"/>
+    <addaction name="actionLicense"/>
     <addaction name="menuLinks"/>
    </widget>
    <addaction name="menuFile"/>
@@ -91,6 +92,11 @@
   <action name="actionUltraSigma_User_s_Guide">
    <property name="text">
     <string>UltraSigma User's Guide</string>
+   </property>
+  </action>
+  <action name="actionLicense">
+   <property name="text">
+    <string>License</string>
    </property>
   </action>
  </widget>

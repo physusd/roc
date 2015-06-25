@@ -16,7 +16,6 @@ public:
     ~DialogAbout();
 
 private slots:
-    void on_tabWidget_destroyed();
 
     void on_pushButton_clicked();
 

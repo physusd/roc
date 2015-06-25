@@ -13,6 +13,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
+//after "open file" dialog tutorial
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -60,8 +62,18 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_actionLoad_Settings_triggered()
 {
-    dia_load = new DialogLoadSettings(this);
-    dia_load->show();
+    //dia_load = new DialogLoadSettings(this);
+   // dia_load->show();
+    //can have a dialog or can just open from the load settings itseself
+
+      //a QMessage box can be used to show file name
+        //see video QT C++ GUI Tutorial 24
+    QString filename=QFileDialog::getOpenFileName(
+                this,
+                tr("Open File"),
+                "C://",
+                "All files (*.*)"
+                );
 }
 
 void MainWindow::on_actionSave_Settings_triggered()

@@ -15,6 +15,7 @@
 #include <QMessageBox>
 //after "open file" dialog tutorial
 #include <QFileDialog>
+#include <QApplication>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,11 +27,16 @@ MainWindow::MainWindow(QWidget *parent) :
     Statlabel = new QLabel(this);
     StatProgress = new QProgressBar(this);
 
+    //QWidget *settings = new QWidget(this);
+    //QTextEdit *setting1 = new QTextEdit(this);
+    //settings->addRow("setting1:",setting1);
+    //this->setCentralWidget(settings);
     ui->statusBar->addPermanentWidget(Statlabel);
     ui->statusBar->addPermanentWidget(StatProgress,1);
     StatProgress->setTextVisible(false);
-
     Statlabel->setText("Progress");
+
+
 }
 
 MainWindow::~MainWindow()
@@ -68,18 +74,33 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
       //a QMessage box can be used to show file name
         //see video QT C++ GUI Tutorial 24
-    QString filename=QFileDialog::getOpenFileName(
+    QString pathplusfilename=QFileDialog::getOpenFileName(
                 this,
                 tr("Open File"),
                 "C://",
                 "All files (*.*)"
                 );
+    QFile myfile(pathplusfilename); // connect the file in disk to the memory block allocated for myfile
+    char firstSetting[128]; char secondSetting[128]; char thirdSetting[128]; char fourthSetting[128];
+    if (myfile.open(QFile::ReadOnly)){
+        qint64 lineLength = myfile.readLine(firstSetting,30);// read the first line to a variable called firstSettings
+        if (lineLength != -1) ui->plainTextEdit->setPlainText(firstSetting);
+        lineLength = myfile.readLine(secondSetting,30);
+        if (lineLength != -1) ui->plainTextEdit_2->setPlainText(secondSetting);
+
+        lineLength = myfile.readLine(thirdSetting,40);
+        if (lineLength != -1) ui->plainTextEdit_3->setPlainText(thirdSetting);
+
+        lineLength = myfile.readLine(fourthSetting,40);
+        if (lineLength != -1) ui->plainTextEdit_4->setPlainText(fourthSetting);
+
 }
 
 void MainWindow::on_actionSave_Settings_triggered()
 {
-    dia_save = new DialogSaveSettings(this);
-    dia_save->show();
+    //dia_save = new DialogSaveSettings(this);
+    //dia_save->show();
+
 }
 
 //Agilent VISA User's Guide

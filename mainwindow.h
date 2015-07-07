@@ -43,6 +43,9 @@ private:
     DialogLoadSettings *dia_load;
     DialogSaveSettings *dia_save;
 
+    //settings
+    QString firstSetting;
+
     //tutorial 25
     QLabel *Statlabel;
     QProgressBar *StatProgress;

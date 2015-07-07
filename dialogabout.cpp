@@ -15,7 +15,11 @@ DialogAbout::DialogAbout(QWidget *parent) :
 
      QTextStream in(&file);
 
-     ui->textBrowser->setText(in.readAll());
+     QList<QTextBrowser *> kids = ui->tabWidget->widget(0)->findChildren<QTextBrowser *>();
+     kids[0]->setText(in.readAll());
+     //ui->textBrowser_2->setText(ui->tabWidget->widget(0)->metaObject()->className());
+     //(QTextBrowser*)(ui->tabWidget->widget(1))->setText(in.readAll());
+     //ui->textBrowser->setText(in.readAll());
 
 }
 
@@ -34,4 +38,9 @@ void DialogAbout::on_pushButton_clicked()
      QTextStream in(&file);
 
      ui->textBrowser->setText(in.readAll());
+}
+
+void DialogAbout::on_textEdit_textChanged()
+{
+
 }

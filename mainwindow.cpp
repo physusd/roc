@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //QTextEdit *setting1 = new QTextEdit(this);
     //settings->addRow("setting1:",setting1);
     //this->setCentralWidget(settings);
+
+
     ui->statusBar->addPermanentWidget(Statlabel);
     ui->statusBar->addPermanentWidget(StatProgress,1);
     StatProgress->setTextVisible(false);
@@ -89,16 +91,17 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
         // read the first line to a variable called firstSettings
         qint64 lineLength = myfile.readLine(firstSetting,30);
-        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
+        if (lineLength != -1) ui->lineEdit->setText(firstSetting);
+                //centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
 
         lineLength = myfile.readLine(secondSetting,30);
-        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_2")->setText(secondSetting);
+        if (lineLength != -1) ui->lineEdit_2->setText(secondSetting);
 
         lineLength = myfile.readLine(thirdSetting,40);
-        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_3")->setText(thirdSetting);
+        if (lineLength != -1) ui->lineEdit_3->setText(thirdSetting);
 
         lineLength = myfile.readLine(fourthSetting,40);
-        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_4")->setText(fourthSetting);
+        if (lineLength != -1) ui->lineEdit_4->setText(fourthSetting);
 
     }
 }

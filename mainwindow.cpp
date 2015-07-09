@@ -16,6 +16,7 @@
 //after "open file" dialog tutorial
 #include <QFileDialog>
 #include <QApplication>
+#include <QTabWidget>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -74,6 +75,8 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
       //a QMessage box can be used to show file name
         //see video QT C++ GUI Tutorial 24
+
+    //copy and paste from ORC project
     QString pathplusfilename=QFileDialog::getOpenFileName(
                 this,
                 tr("Open File"),
@@ -83,17 +86,21 @@ void MainWindow::on_actionLoad_Settings_triggered()
     QFile myfile(pathplusfilename); // connect the file in disk to the memory block allocated for myfile
     char firstSetting[128]; char secondSetting[128]; char thirdSetting[128]; char fourthSetting[128];
     if (myfile.open(QFile::ReadOnly)){
-        qint64 lineLength = myfile.readLine(firstSetting,30);// read the first line to a variable called firstSettings
-        if (lineLength != -1) ui->plainTextEdit->setPlainText(firstSetting);
+
+        // read the first line to a variable called firstSettings
+        qint64 lineLength = myfile.readLine(firstSetting,30);
+        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
+
         lineLength = myfile.readLine(secondSetting,30);
-        if (lineLength != -1) ui->plainTextEdit_2->setPlainText(secondSetting);
+        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_2")->setText(secondSetting);
 
         lineLength = myfile.readLine(thirdSetting,40);
-        if (lineLength != -1) ui->plainTextEdit_3->setPlainText(thirdSetting);
+        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_3")->setText(thirdSetting);
 
         lineLength = myfile.readLine(fourthSetting,40);
-        if (lineLength != -1) ui->plainTextEdit_4->setPlainText(fourthSetting);
+        if (lineLength != -1) ui->centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit_4")->setText(fourthSetting);
 
+    }
 }
 
 void MainWindow::on_actionSave_Settings_triggered()

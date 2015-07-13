@@ -108,8 +108,14 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
 void MainWindow::on_actionSave_Settings_triggered()
 {
-    //dia_save = new DialogSaveSettings(this);
-    //dia_save->show();
+    QString filename=QFileDialog::getSaveFileName(this, tr("Save File"), "C://", "All files (*.*)");
+
+    QFile file(filename);
+
+    QTextStream out(&file);
+
+    QString setting1 = ui->lineEdit->text();
+    out << setting1 << "\n";
 
 }
 

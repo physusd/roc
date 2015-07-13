@@ -111,12 +111,11 @@ void MainWindow::on_actionSave_Settings_triggered()
     QString filename=QFileDialog::getSaveFileName(this, tr("Save File"), "C://", "All files (*.*)");
 
     QFile file(filename);
-
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) return;
     QTextStream out(&file);
 
     QString setting1 = ui->lineEdit->text();
     out << setting1 << "\n";
-
 }
 
 //Agilent VISA User's Guide

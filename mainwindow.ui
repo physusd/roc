@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>336</width>
-    <height>283</height>
+    <width>405</width>
+    <height>331</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Channel 1</string>
+        <string>Ch 1</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <item row="3" column="1">
@@ -69,7 +69,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Channel 2</string>
+        <string>Ch 2</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="3">
@@ -116,7 +116,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Channel 3</string>
+        <string>Ch 3</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
@@ -163,7 +163,7 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>Channel 4</string>
+        <string>Ch 4</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
@@ -210,6 +210,27 @@
       </widget>
      </widget>
     </item>
+    <item>
+     <widget class="QPushButton" name="ReadSettings">
+      <property name="text">
+       <string>Read Settings</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Run">
+      <property name="text">
+       <string>Run</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="Stop">
+      <property name="text">
+       <string>Stop</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -217,7 +238,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>336</width>
+     <width>405</width>
      <height>21</height>
     </rect>
    </property>
@@ -225,7 +246,6 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen"/>
     <addaction name="actionLoad_Settings"/>
     <addaction name="actionSave_Settings"/>
    </widget>
@@ -242,11 +262,24 @@
      <addaction name="actionUltraSigma_User_s_Guide"/>
     </widget>
     <addaction name="actionAbout"/>
-    <addaction name="actionLicense"/>
     <addaction name="menuLinks"/>
+   </widget>
+   <widget class="QMenu" name="menuConnect">
+    <property name="title">
+     <string>Devices</string>
+    </property>
+    <widget class="QMenu" name="menuDSO_X_3034A">
+     <property name="title">
+      <string>DSO-X 3034A</string>
+     </property>
+     <addaction name="actionConnect"/>
+     <addaction name="actionDisconnect"/>
+    </widget>
+    <addaction name="menuDSO_X_3034A"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuConnect"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -295,6 +328,16 @@
   <action name="actionLicense">
    <property name="text">
     <string>License</string>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="actionDisconnect">
+   <property name="text">
+    <string>Disconnect</string>
    </property>
   </action>
  </widget>

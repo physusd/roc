@@ -9,7 +9,6 @@
 #include <QtWidgets>
 //including the process to link to external source
 #include <qprocess.h>
-//after tutorial for displaying file
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
@@ -17,29 +16,13 @@
 #include <QFileDialog>
 #include <QApplication>
 #include <QTabWidget>
+#include <visa.h> // include VISA header file
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    //After tutorial 25
-    Statlabel = new QLabel(this);
-    StatProgress = new QProgressBar(this);
-
-    //QWidget *settings = new QWidget(this);
-    //QTextEdit *setting1 = new QTextEdit(this);
-    //settings->addRow("setting1:",setting1);
-    //this->setCentralWidget(settings);
-
-
-    ui->statusBar->addPermanentWidget(Statlabel);
-    ui->statusBar->addPermanentWidget(StatProgress,1);
-    StatProgress->setTextVisible(false);
-    Statlabel->setText("Progress");
-
-
 }
 
 MainWindow::~MainWindow()
@@ -51,33 +34,10 @@ void MainWindow::on_actionAbout_triggered()
 {
     dia_about = new DialogAbout(this);
     dia_about->show();
-
-    //from a tutorial online
-   //QFile file("C:\\Users\\eric.roach\\Documents\\roc");
-   //if(!file.open(QIODevice::ReadOnly))
-      //  QMessageBox::information(0,"info",file.errorString());
-
-  //  QTextStream in(&file);
-
-   // ui->textBrowser->setText(in.readAll());
-
-
-
-    //string contentFromLICENSE;
-   // ifstream inputfile("path/to/LICENSE");
-//contestFromLICENSE<<inputfile;
-//dia_about->tab(1)->SetContent(contestFromLICENSE);
 }
 
 void MainWindow::on_actionLoad_Settings_triggered()
 {
-    //dia_load = new DialogLoadSettings(this);
-   // dia_load->show();
-    //can have a dialog or can just open from the load settings itseself
-
-      //a QMessage box can be used to show file name
-        //see video QT C++ GUI Tutorial 24
-
     //copy and paste from ORC project
     QString pathplusfilename=QFileDialog::getOpenFileName(
                 this,
@@ -85,6 +45,7 @@ void MainWindow::on_actionLoad_Settings_triggered()
                 "C://",
                 "All files (*.*)"
                 );
+
     QFile myfile(pathplusfilename); // connect the file in disk to the memory block allocated for myfile
     char firstSetting[128]; char secondSetting[128]; char thirdSetting[128]; char fourthSetting[128];
     if (myfile.open(QFile::ReadOnly)){
@@ -92,7 +53,7 @@ void MainWindow::on_actionLoad_Settings_triggered()
         // read the first line to a variable called firstSettings
         qint64 lineLength = myfile.readLine(firstSetting,30);
         if (lineLength != -1) ui->lineEdit->setText(firstSetting);
-                //centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
+        //centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
 
         lineLength = myfile.readLine(secondSetting,30);
         if (lineLength != -1) ui->lineEdit_2->setText(secondSetting);
@@ -105,7 +66,6 @@ void MainWindow::on_actionLoad_Settings_triggered()
 
     }
 }
-
 void MainWindow::on_actionSave_Settings_triggered()
 {
     QString filename=QFileDialog::getSaveFileName(this, tr("Save File"), "C://", "All files (*.*)");
@@ -116,6 +76,15 @@ void MainWindow::on_actionSave_Settings_triggered()
 
     QString setting1 = ui->lineEdit->text();
     out << setting1 << "\n";
+
+    QString setting2 = ui->lineEdit_2->text();
+    out << setting2 << "\n";
+
+    QString setting3 = ui->lineEdit_3->text();
+    out << setting3 << "\n";
+
+    QString setting4 = ui->lineEdit_4->text();
+    out << setting4 << "\n";
 }
 
 //Agilent VISA User's Guide
@@ -147,3 +116,103 @@ void MainWindow::on_actionUltraSigma_User_s_Guide_triggered()
     args<<"Need address here";
     process->start(command, args);
 }
+
+void MainWindow::on_actionConnect_triggered()
+{
+    // open resource manager
+    ViSession rscmng;
+    ViStatus stat = viOpenDefaultRM(&rscmng);
+
+    // search for the oscilloscope
+    ViChar viFound[VI_FIND_BUFLEN];
+    ViUInt32 nFound;
+    ViFindList listOfFound;
+    stat = viFindRsrc(rscmng, (ViString)"USB?*", &listOfFound, &nFound, viFound);
+    qDebug()<<stat;
+
+    if (stat!=0) {
+        ui->statusBar->showMessage("Please connect scope to PC");
+        viClose(rscmng);
+        return;
+    }
+    qDebug()<<nFound;
+
+    if (nFound==0) {
+        ui->statusBar->showMessage("No scope found");
+        viClose(rscmng);
+        return;
+    } else if (nFound>1) {
+        ui->statusBar->showMessage("More than 1 scopes found");
+        viClose(rscmng);
+        return;
+    }
+    qDebug()<<viFound;
+
+    // connect to the oscilloscope
+    ViSession osc;
+    ViUInt32 openTimeout=1000;
+    stat = viOpen(rscmng, viFound, VI_NULL, openTimeout, &osc);
+    if (stat!=0) return;
+
+    viSetAttribute(osc, VI_ATTR_TMO_VALUE, 1);//set timeout value
+
+    char buf[256] = {0};
+
+    // communicate
+    viPrintf(osc, (ViString)"*IDN?\n");
+    viScanf(osc,(ViString)"%t",&buf);
+    ui->statusBar->showMessage(buf);
+}
+
+void MainWindow::on_actionDisconnect_triggered()
+{
+    // close VI sessions
+    viClose(osc);
+    viClose(rscmng);
+}
+
+void MainWindow::on_Run_clicked()
+{
+    // Run
+    viPrintf(osc, (ViString)":RUN\n");
+}
+
+void MainWindow::on_Stop_clicked()
+{
+    // Stop
+    viPrintf(osc, (ViString)":STOP\n");
+}
+
+void MainWindow::on_ReadSettings_clicked()
+{
+    char buf[256] = {0};
+
+    // Operation Complete
+    viPrintf(osc, (ViString)"*OPC?\n");
+    viScanf(osc,(ViString)"%t",&buf);
+
+    // Get x axis units; :TIMebase[:MAIN]:SCALe?
+    viPrintf(osc, (ViString)":tim:scal?\n");
+    viScanf(osc,(ViString)"%t", &buf);
+    ui->lineEdit->setText(buf);
+
+    // Get y axis scale maybe; :CHANnel<n>:SCALe?
+    viPrintf(osc, (ViString)":CHANnel1:SCALe?\n");
+    viScanf(osc, (ViString)"%t", &buf);
+    ui->lineEdit_2->setText(buf);
+
+    // Get Offset; :TIMebase[:MAIN]:OFFSet?
+    viPrintf(osc, (ViString)":tim:pos?\n");
+    viScanf(osc, (ViString)"%t", &buf);
+    ui->lineEdit_3->setText(buf);
+
+    // Timebase:HREF:MODE?
+    viPrintf(osc, (ViString)":TIMebase:RANGe?\n");
+    viScanf(osc, (ViString)"%t", &buf);
+    ui->lineEdit_4->setText(buf);
+}
+
+
+
+
+

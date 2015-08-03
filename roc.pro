@@ -28,3 +28,6 @@ FORMS    += mainwindow.ui \
     dialogloadsettings.ui \
     dialogabout.ui \
     dialogsavesettings.ui
+
+win32: LIBS += "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\lib\msc\visa32.lib"
+win32: INCLUDEPATH += "C:\Program Files (x86)\IVI Foundation\VISA\WinNT\Include"

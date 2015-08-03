@@ -7,6 +7,7 @@
 #include <QtGui>
 #include <QLabel>
 #include <QProgressBar>
+#include <visa.h>
 
 class DialogAbout;
 class DialogLoadSettings;
@@ -37,11 +38,25 @@ private slots:
 
     void on_actionUltraSigma_User_s_Guide_triggered();
 
+    void on_Run_clicked();
+
+    void on_ReadSettings_clicked();
+
+    void on_actionDisconnect_triggered();
+
+    void on_Stop_clicked();
+
+    void on_actionConnect_triggered();
+
 private:
     Ui::MainWindow *ui;
     DialogAbout *dia_about;
     DialogLoadSettings *dia_load;
     DialogSaveSettings *dia_save;
+
+    //Declaring some globals for connecting
+    ViSession rscmng;
+    ViSession osc;
 
     //settings
     QString firstSetting;

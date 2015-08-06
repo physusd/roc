@@ -16,11 +16,7 @@ DialogAbout::DialogAbout(QWidget *parent) :
      QTextStream in(&file);
 
      QList<QTextBrowser *> kids = ui->tabWidget->widget(0)->findChildren<QTextBrowser *>();
-     kids[0]->setText(in.readAll());
-     //ui->textBrowser_2->setText(ui->tabWidget->widget(0)->metaObject()->className());
-     //(QTextBrowser*)(ui->tabWidget->widget(1))->setText(in.readAll());
-     //ui->textBrowser->setText(in.readAll());
-
+     kids[0]->setText(in.readAll());     
 }
 
 DialogAbout::~DialogAbout()

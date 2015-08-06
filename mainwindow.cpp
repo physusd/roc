@@ -12,7 +12,6 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMessageBox>
-//after "open file" dialog tutorial
 #include <QFileDialog>
 #include <QApplication>
 #include <QTabWidget>
@@ -53,7 +52,6 @@ void MainWindow::on_actionLoad_Settings_triggered()
         // read the first line to a variable called firstSettings
         qint64 lineLength = myfile.readLine(firstSetting,30);
         if (lineLength != -1) ui->lineEdit->setText(firstSetting);
-        //centralWidget->findChild<QTabWidget*>("tabWidget")->widget(0)->findChild<QLineEdit*>("lineEdit")->setText(firstSetting);
 
         lineLength = myfile.readLine(secondSetting,30);
         if (lineLength != -1) ui->lineEdit_2->setText(secondSetting);
@@ -120,7 +118,6 @@ void MainWindow::on_actionUltraSigma_User_s_Guide_triggered()
 void MainWindow::on_actionConnect_triggered()
 {
     // open resource manager
-    ViSession rscmng;
     ViStatus stat = viOpenDefaultRM(&rscmng);
 
     // search for the oscilloscope
@@ -149,7 +146,6 @@ void MainWindow::on_actionConnect_triggered()
     qDebug()<<viFound;
 
     // connect to the oscilloscope
-    ViSession osc;
     ViUInt32 openTimeout=1000;
     stat = viOpen(rscmng, viFound, VI_NULL, openTimeout, &osc);
     if (stat!=0) return;
@@ -162,7 +158,11 @@ void MainWindow::on_actionConnect_triggered()
     viPrintf(osc, (ViString)"*IDN?\n");
     viScanf(osc,(ViString)"%t",&buf);
     ui->statusBar->showMessage(buf);
-}
+
+    viPrintf(osc, (ViString)":WAV:DATA?");
+    viScanf(osc,(ViString)"%t",&buf);
+    ui->lineEdit->setText(buf);
+   }
 
 void MainWindow::on_actionDisconnect_triggered()
 {

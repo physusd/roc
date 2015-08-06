@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = roc
 TEMPLATE = app
@@ -16,13 +16,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     dialogloadsettings.cpp \
     dialogabout.cpp \
-    dialogsavesettings.cpp
+    dialogsavesettings.cpp \
+    qcustomplot.cpp
 
 HEADERS  += \
     mainwindow.h \
     dialogloadsettings.h \
     dialogabout.h \
-    dialogsavesettings.h
+    dialogsavesettings.h \
+    qcustomplot.h
 
 FORMS    += mainwindow.ui \
     dialogloadsettings.ui \

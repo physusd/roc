@@ -158,10 +158,6 @@ void MainWindow::on_actionConnect_triggered()
     viPrintf(osc, (ViString)"*IDN?\n");
     viScanf(osc,(ViString)"%t",&buf);
     ui->statusBar->showMessage(buf);
-
-    viPrintf(osc, (ViString)":WAV:DATA?");
-    viScanf(osc,(ViString)"%t",&buf);
-    ui->lineEdit->setText(buf);
    }
 
 void MainWindow::on_actionDisconnect_triggered()
@@ -183,6 +179,66 @@ void MainWindow::on_Stop_clicked()
     viPrintf(osc, (ViString)":STOP\n");
 }
 
+void MainWindow::on_Autoscale_clicked()
+{
+    viPrintf(osc, (ViString)":AUToscale\n");
+}
+
+void MainWindow::on_Single_clicked()
+{
+    viPrintf(osc, (ViString)":SINGle\n");
+}
+
+void MainWindow::on_Aquire_clicked()
+{
+    // set up wavform readout
+
+    viPrintf(osc, (ViString)":WAV:POIN:MODE RAW\n");
+    viPrintf(osc, (ViString)":WAV:FORM BYTE\n");
+    //viPrintf(osc, (ViString)":WAV:UNS ON\n");
+    viPrintf(osc, (ViString)":WAV:SOUR CHAN1\n");
+    viPrintf(osc, (ViString)":WAV:POIN 2000\n");
+    viPrintf(osc, (ViString)":WAV:POIN?\n");
+    char buf[128];
+    viScanf(osc,(ViString)"%t",&buf);
+    qDebug()<<buf;
+
+    // get data from osc
+    viSetAttribute(osc, VI_ATTR_TMO_VALUE, 1000);//set timeout value
+    char dat[10000] = {0};
+    ViStatus st;
+    st=viPrintf(osc, (ViString)":WAVeform:DATA?\n");
+    qDebug()<<st;
+
+    st=viScanf(osc,(ViString)"%t",&dat);
+    qDebug()<<st;
+    viPrintf(osc, (ViString)"*OPC?\n");
+    viScanf(osc,(ViString)"%t",&buf);
+
+    for (int i=0; i<10; i++) {
+        qDebug()<<dat[i];
+    }
+
+    //assign data to xy plot
+    int size = 2000;
+    QVector<double> x(size), y(size);
+    for (int i=0; i<size; i++)
+    {
+        x[i] = i;
+        y[i] = (double) dat[i+10];
+        qDebug()<<(double) dat[i+10];
+    }
+
+    ui->plot->addGraph();
+    ui->plot->graph(0)->setData(x,y);
+    // give the axes some labels
+    ui->plot->xAxis->setLabel("Timescale");
+    ui->plot->yAxis->setLabel("Voltage");
+    ui->plot->xAxis->setRange(0,2000);
+    ui->plot->yAxis->setRange(-128,128);
+    ui->plot->replot();
+}
+
 void MainWindow::on_ReadSettings_clicked()
 {
     char buf[256] = {0};
@@ -202,7 +258,7 @@ void MainWindow::on_ReadSettings_clicked()
     ui->lineEdit_2->setText(buf);
 
     // Get Offset; :TIMebase[:MAIN]:OFFSet?
-    viPrintf(osc, (ViString)":tim:pos?\n");
+    viPrintf(osc, (ViString)":TIMebase:RANGe?\n");
     viScanf(osc, (ViString)"%t", &buf);
     ui->lineEdit_3->setText(buf);
 
@@ -211,8 +267,6 @@ void MainWindow::on_ReadSettings_clicked()
     viScanf(osc, (ViString)"%t", &buf);
     ui->lineEdit_4->setText(buf);
 }
-
-
 
 
 

@@ -48,6 +48,12 @@ private slots:
 
     void on_actionConnect_triggered();
 
+    void on_Autoscale_clicked();
+
+    void on_Single_clicked();
+
+    void on_Aquire_clicked();
+
 private:
     Ui::MainWindow *ui;
     DialogAbout *dia_about;
